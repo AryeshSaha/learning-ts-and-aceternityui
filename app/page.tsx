@@ -1,11 +1,14 @@
+import Grid from "@/components/grid";
 import Header from "@/components/header";
+import Hero from "@/components/hero";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24 bg-black">
-      <Header />
-      <div className="min-h-screen">
-        <h1 className="text-white text-center text-lg">hijibiji</h1>
+    <main className="min-h-screen relative bg-black-100 flex justify-center items-center flex-col overflow-hidden mx-auto sm:px-10 px-5">
+      <div className="max-w-7xl w-full">
+        <Header />
+        <Hero />
+        <Grid />
       </div>
     </main>
   );
