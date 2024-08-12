@@ -8,8 +8,8 @@ import {
 } from "framer-motion";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { navItem } from "@/data/navItems";
-import { ModeToggle } from "@/app/mode-toggle";
+// import { ModeToggle } from "@/app/mode-toggle";
+import { navItem } from "@/lib/definitions";
 
 export const FloatingNav = ({
   navItems,
