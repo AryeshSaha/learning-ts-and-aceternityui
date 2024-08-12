@@ -1,6 +1,7 @@
 import Grid from "@/components/grid";
 import Header from "@/components/header";
 import Hero from "@/components/hero";
+import { HoverEffect } from "@/components/ui/card-hover-effect";
 
 export default function Home() {
   return (
@@ -9,6 +10,7 @@ export default function Home() {
         <Header />
         <Hero />
         <Grid />
+        {/* <HoverEffect items={projects} /> */}
       </div>
     </main>
   );

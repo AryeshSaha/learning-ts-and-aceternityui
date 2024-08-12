@@ -1,6 +1,6 @@
 import React from 'react'
 import { FloatingNav } from './ui/floating-navbar'
-import { navItems } from '@/data/navItems'
+import navItems from '@/data/navItems'
 
 export default function Header() {
   return (
