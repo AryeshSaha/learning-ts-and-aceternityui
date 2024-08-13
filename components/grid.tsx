@@ -1,6 +1,6 @@
 "use client";
 import { cn } from "@/lib/utils";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BentoGrid, BentoGridItem } from "./ui/bento-grid";
 import { gridItem } from "@/lib/definitions";
 import {
@@ -13,21 +13,27 @@ import {
 import { motion } from "framer-motion";
 import Image from "next/image";
 const SungJinwoo = "/images/sung-jinwoo.jpg";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+import LampDemo from "./ui/lamp";
+const animationData = "/lottie/gridItemHeader.json";
 
 export default function Grid() {
   return (
-    <BentoGrid className="max-w-4xl mx-auto md:auto-rows-[20rem] relative mb-20">
-      {gridItems.map((item, i) => (
-        <BentoGridItem
-          key={i}
-          title={item.title}
-          description={item.description}
-          header={item.header}
-          className={cn("[&>p:text-lg]", item.className)}
-          icon={item.icon}
-        />
-      ))}
-    </BentoGrid>
+    <div>
+      <LampDemo />
+      <BentoGrid className="max-w-4xl mx-auto md:auto-rows-[20rem] relative -mt-60 mb-20">
+        {gridItems.map((item, i) => (
+          <BentoGridItem
+            key={i}
+            title={item.title}
+            description={item.description}
+            header={item.header}
+            className={cn("[&>p:text-lg]", item.className)}
+            icon={item.icon}
+          />
+        ))}
+      </BentoGrid>
+    </div>
   );
 }
 
@@ -61,7 +67,7 @@ const SkeletonOne = () => {
     <motion.div
       initial="initial"
       whileHover="animate"
-      className="flex flex-1 w-full h-full min-h-[6rem] dark:bg-dot-white/[0.2] bg-dot-black/[0.2] flex-col space-y-2"
+      className="flex flex-1 w-full h-full min-h-[6rem] dark:bg-dot-white/[0.5] bg-dot-black/[0.5] flex-col space-y-2"
     >
       <motion.div
         variants={variants}
@@ -105,20 +111,27 @@ const SkeletonTwo = () => {
       },
     },
   };
-  const arr = new Array(6).fill(0);
+  const [widths, setWidths] = useState<number[]>([]);
+  useEffect(() => {
+    const newWidths = new Array(6)
+      .fill(0)
+      .map(() => Math.random() * (100 - 40) + 40);
+    console.log(newWidths);
+    setWidths(newWidths);
+  }, []);
   return (
     <motion.div
       initial="initial"
       animate="animate"
       whileHover="hover"
-      className="flex flex-1 w-full h-full min-h-[6rem] dark:bg-dot-white/[0.2] bg-dot-black/[0.2] flex-col space-y-2"
+      className="flex flex-1 w-full h-full min-h-[6rem] dark:bg-dot-white/[0.5] bg-dot-black/[0.5] flex-col space-y-2"
     >
-      {arr.map((_, i) => (
+      {widths.map((width, i) => (
         <motion.div
           key={"skelenton-two" + i}
           variants={variants}
           style={{
-            maxWidth: Math.random() * (100 - 40) + 40 + "%",
+            maxWidth: `${width}%`,
           }}
           className="flex flex-row rounded-full border border-neutral-100 dark:border-white/[0.2] p-2  items-center space-x-2 bg-neutral-100 dark:bg-black w-full h-4"
         ></motion.div>
@@ -145,14 +158,13 @@ const SkeletonThree = () => {
         repeat: Infinity,
         repeatType: "reverse",
       }}
-      className="flex flex-1 w-full h-full min-h-[6rem] dark:bg-dot-white/[0.2] rounded-lg bg-dot-black/[0.2] flex-col space-y-2"
-      style={{
-        background:
-          "linear-gradient(-45deg, #FFD700, #FFA07A, #00FFFF, #9370DB)",
-        backgroundSize: "400% 400%",
-      }}
+      className="flex flex-1 w-full h-full min-h-[6rem] dark:bg-dot-white/[0.5] rounded-lg bg-dot-black/[0.5] flex-col space-y-2"
     >
-      <motion.div className="h-full w-full rounded-lg"></motion.div>
+      <motion.div className="h-full w-full rounded-lg relative">
+        <div className="absolute pointer-events-none inset-0">
+          <DotLottieReact src={animationData} loop autoplay />
+        </div>
+      </motion.div>
     </motion.div>
   );
 };
@@ -182,7 +194,7 @@ const SkeletonFour = () => {
       initial="initial"
       animate="animate"
       whileHover="hover"
-      className="flex flex-1 w-full h-full min-h-[6rem] dark:bg-dot-white/[0.2] bg-dot-black/[0.2] flex-row space-x-2"
+      className="flex flex-1 w-full h-full min-h-[6rem] dark:bg-dot-white/[0.5] bg-dot-black/[0.5] flex-row space-x-2"
     >
       <motion.div
         variants={first}
@@ -268,14 +280,16 @@ const SkeletonFive = () => {
     <motion.div
       initial="initial"
       whileHover="animate"
-      className="flex flex-1 w-full h-full min-h-[6rem] dark:bg-dot-white/[0.2] bg-dot-black/[0.2] flex-col space-y-2"
+      className="flex flex-1 w-full h-full min-h-[6rem] dark:bg-dot-white/[0.5] bg-dot-black/[0.5] flex-col space-y-2"
     >
       <motion.div
         variants={variants}
         className="flex flex-row rounded-2xl border border-neutral-100 dark:border-white/[0.2] p-2  items-start space-x-2 bg-white dark:bg-black"
       >
         <p className="text-xs text-neutral-500">
-          I envision a modern, clean design with sections for skills, experience, and education. Could you create something like that for me?
+          I envision a modern, clean design with sections for skills,
+          experience, and education. Could you create something like that for
+          me?
         </p>
         <Image
           src={SungJinwoo}
@@ -290,7 +304,9 @@ const SkeletonFive = () => {
         className="flex flex-row rounded-full border border-neutral-100 dark:border-white/[0.2] p-2 items-center justify-start space-x-2 w-auto mr-auto bg-white dark:bg-black"
       >
         <div className="h-6 w-6 rounded-full bg-gradient-to-r from-pink-500 to-violet-500 flex-shrink-0" />
-        <p className="text-xs text-neutral-500">Absolutely! Let&apos;s arrange a meeting on Skype.</p>
+        <p className="text-xs text-neutral-500">
+          Absolutely! Let&apos;s arrange a meeting on Skype.
+        </p>
       </motion.div>
     </motion.div>
   );
@@ -306,13 +322,15 @@ const gridItems: gridItem[] = [
     ),
     header: <SkeletonOne />,
     className: "md:col-span-1",
-    icon: <IconClipboardCopy className="h-4 w-4 dark:text-white text-black-100" />,
+    icon: (
+      <IconClipboardCopy className="h-4 w-4 dark:text-white text-black-100" />
+    ),
   },
   {
     title: "Automated Spell Checking",
     description: (
       <span className="text-sm">
-        Let AI handle the spell-checking of your resume.
+        Let AI handle the spell-checking line by line.
       </span>
     ),
     header: <SkeletonTwo />,
@@ -339,7 +357,9 @@ const gridItems: gridItem[] = [
     ),
     header: <SkeletonFour />,
     className: "md:col-span-2",
-    icon: <IconTableColumn className="h-4 w-4 dark:text-white text-black-100" />,
+    icon: (
+      <IconTableColumn className="h-4 w-4 dark:text-white text-black-100" />
+    ),
   },
   {
     title: "Custom Resume Templates",
@@ -350,6 +370,8 @@ const gridItems: gridItem[] = [
     ),
     header: <SkeletonFive />,
     className: "md:col-span-1",
-    icon: <IconBoxAlignRightFilled className="h-4 w-4 dark:text-white text-black-100" />,
+    icon: (
+      <IconBoxAlignRightFilled className="h-4 w-4 dark:text-white text-black-100" />
+    ),
   },
 ];

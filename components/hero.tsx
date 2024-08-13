@@ -10,7 +10,7 @@ const CVCard = "/images/3d-fluency-resume.png";
 
 export default function Hero() {
   return (
-    <div className="pt-32 pb-20 min-h-screen">
+    <div className="pt-32 min-h-screen">
       <Spotlight
         fill="white"
         className="-top-28 -left-20 md:-top-20 md:-left-32 h-screen"
