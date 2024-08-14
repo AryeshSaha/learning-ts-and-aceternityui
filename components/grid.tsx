@@ -13,15 +13,19 @@ import {
 import { motion } from "framer-motion";
 import Image from "next/image";
 const SungJinwoo = "/images/sung-jinwoo.jpg";
-import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import LampDemo from "./ui/lamp";
+import dynamic from "next/dynamic";
 const animationData = "/lottie/gridItemHeader.json";
+
+const DotLottieReact = dynamic(() => import('@lottiefiles/dotlottie-react').then(mod => mod.DotLottieReact), {
+  ssr: false,
+});
 
 export default function Grid() {
   return (
     <div>
       <LampDemo />
-      <BentoGrid className="max-w-4xl mx-auto md:auto-rows-[20rem] relative -mt-60 mb-20">
+      <BentoGrid className="max-w-4xl mx-auto md:auto-rows-[20rem] relative -mt-60 mb-20 px-5">
         {gridItems.map((item, i) => (
           <BentoGridItem
             key={i}
